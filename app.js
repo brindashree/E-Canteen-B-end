@@ -8,10 +8,10 @@ const cors = require("cors");
 
 //My routes
 const authRoutes = require("./routes/auth");
-// const userRoutes = require("./routes/user");
-// const categoryRoutes = require("./routes/category");
-// const productRoutes = require("./routes/product");
-// const OrderRoutes = require("./routes/order")
+const userRoutes = require("./routes/user");
+const categoryRoutes = require("./routes/category");
+const productRoutes = require("./routes/product");
+const OrderRoutes = require("./routes/order");
 
 //can change the name from /test in the url below to any other name
 mongoose.set('useFindAndModify', false);
@@ -30,10 +30,10 @@ app.use(cors());
 
 //My routes
 app.use("/api", authRoutes)
-// app.use("/api", userRoutes)
-// app.use("/api",categoryRoutes)
-// app.use("/api", productRoutes)
-// app.use("/api",OrderRoutes)
+app.use("/api", userRoutes)
+app.use("/api",categoryRoutes)
+app.use("/api", productRoutes)
+app.use("/api",OrderRoutes)
 
 
 const port = process.env.PORT || 7000;

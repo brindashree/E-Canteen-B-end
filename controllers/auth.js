@@ -86,7 +86,17 @@ exports.isAuthenticated = (req, res, next) => {
 }
 
 exports.isAdmin = (req, res, next) => {
-    if (req.profile.role === 0) {
+    if (req.profile.role === 0 && req.profile.role === 1) {
+        return res.status(403).json({
+            error: "you are not admin , Access denied"
+        });
+    }
+    next();
+}
+
+//canteen-new
+exports.isTeacher = (req, res, next) => {
+    if (req.profile.role === 1) {
         return res.status(403).json({
             error: "you are not admin , Access denied"
         });
