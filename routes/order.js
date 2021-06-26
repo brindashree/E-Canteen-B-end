@@ -1,34 +1,66 @@
-const express = require("express")
+const express = require("express");
 const router = express.Router();
 
-const {isSignedIn, isAuthenticated, isAdmin} = require("../controllers/auth");
-const { getUserById, pushOrderInPurchaseList} = require("../controllers/user");
-const {updateStock} = require("../controllers/product")
-const {getOrderById, 
-    createOrder,
-    getAllOrders,
-    getOrderStatus,
-    updateStatus
-} = require("../controllers/order")
+const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
+const {
+	getUserById,
+
+	pushOrderInPurchaseList,
+	getRbUserById,
+} = require("../controllers/user");
+const { updateStock } = require("../controllers/product");
+const {
+	createOrder,
+	getAllOrders,
+
+	getOrderById,
+	getOrderStatus,
+	updateStatus,
+} = require("../controllers/order");
 
 //params
 router.param("userId", getUserById);
-router.param("orderId", getOrderById)
+router.param("orderId", getOrderById);
+router.param("rbuserId", getRbUserById);
 
 //create routes
-router.post("/order/create/:userId",
-isSignedIn, 
-isAuthenticated,
-pushOrderInPurchaseList,
-createOrder,
+router.post(
+	"/order/create/:userId",
+	isSignedIn,
+	isAuthenticated,
+	pushOrderInPurchaseList,
+	createOrder
 );
 
 //read routes
-router.get("/order/all/:userId", isSignedIn, isAuthenticated, isAdmin, getAllOrders)
-
+router.get(
+	"/order/admin/all/:userId",
+	isSignedIn,
+	isAuthenticated,
+	isAdmin,
+	getAllOrders
+);
+//to read order of specific user
+router.get(
+	"/order/user/all/:userId",
+	isSignedIn,
+	isAuthenticated,
+	getAllOrders
+);
 //status of order
-router.get("/order/status/:userId", isSignedIn, isAuthenticated, isAdmin, getOrderStatus)
-router.put("/order/:orderId/status/:userId", isSignedIn, isAuthenticated, isAdmin, updateStatus);
-
+router.get(
+	"/order/status/:userId",
+	isSignedIn,
+	isAuthenticated,
+	isAdmin,
+	getOrderStatus
+);
+router.put(
+	"/order/:orderId/status/:userId",
+	isSignedIn,
+	isAuthenticated,
+	isAdmin,
+	updateStatus
+);
 
 module.exports = router;
