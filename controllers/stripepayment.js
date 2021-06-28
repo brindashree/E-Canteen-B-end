@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 
 exports.makepayment = (req, res) => {
 	const { products, price, token } = req.body;
-	console.log("Products", products, price);
+
 	const idempotencyKey = uuidv4();
 	return stripe.customers
 		.create({

@@ -1,18 +1,16 @@
 const { isBuffer } = require("lodash");
 const { Order, ProductCart } = require("../models/Order");
 
-exports.getOrderById = (req, res, id) => {
-	Order.findById(id)
-		.populate("products.product", "name price")
-		.exec((err, order) => {
-			if (err) {
-				return res.status(400).json({
-					error: "No order found in DB",
-				});
-			}
-			req.order = order;
-			next();
-		});
+exports.getOrderById = (req, res, next, id) => {
+	Order.findById(id).exec((err, order) => {
+		if (err) {
+			return res.status(400).json({
+				error: "No order found in DB",
+			});
+		}
+		req.order = order;
+		next();
+	});
 };
 
 exports.createOrder = (req, res) => {
@@ -49,6 +47,36 @@ exports.updateStatus = (req, res) => {
 	Order.updateOne(
 		{ _id: req.body.orderId },
 		{ $set: { status: req.body.status } },
+		(err, order) => {
+			if (err) {
+				return res.status(400).json({
+					error: "Cannot update Order Status",
+				});
+			}
+			res.json(order);
+		}
+	);
+};
+exports.updateStatusConfirm = (req, res) => {
+	Order.findByIdAndUpdate(
+		{ _id: req.order._id },
+		{ $set: { status: "Confirmed" } },
+		{ new: true, useFindAndModify: false },
+		(err, order) => {
+			if (err) {
+				return res.status(400).json({
+					error: "Cannot update Order Status",
+				});
+			}
+			res.json(order);
+		}
+	);
+};
+exports.updateStatusDeclined = (req, res) => {
+	Order.findByIdAndUpdate(
+		{ _id: req.order._id },
+		{ $set: { status: "Declined" } },
+		{ new: true, useFindAndModify: false },
 		(err, order) => {
 			if (err) {
 				return res.status(400).json({

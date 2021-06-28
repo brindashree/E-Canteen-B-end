@@ -120,6 +120,7 @@ exports.pushOrderInPurchaseList = (req, res, next) => {
 			transaction_id: req.body.order.transaction_id,
 		});
 	});
+
 	// store this in db
 	User.findOneAndUpdate(
 		{ _id: req.profile._id },

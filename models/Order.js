@@ -18,6 +18,7 @@ const OrderSchema = new mongoose.Schema(
 		transaction_id: {},
 		amount: { type: Number },
 		address: String,
+		deliveryTime: String,
 		status: {
 			type: String,
 			//canteen - new
