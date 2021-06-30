@@ -23,6 +23,7 @@
     "lodash": "^4.17.15",
     "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
+    "nodemailer": "^6.6.2",
     "nodemon": "^1.19.4",
     "npm": "^6.13.0",
     "stripe": "^8.154.0",

@@ -39,38 +39,6 @@ app.use("/api", productRoutes);
 app.use("/api", OrderRoutes);
 app.use("/api", stripeRoutes);
 
-// app.post("/payments", (req, res) => {
-// 	const { product, token } = req.body;
-// 	console.log("Product", product);
-// 	console.log("Price", product.price);
-// 	const idempotencyKey = uuidv4();
-// 	return stripe.customers
-// 		.create({
-// 			email: token.email,
-// 			source: token.id,
-// 		})
-// 		.then((customer) => {
-// 			stripe.charges.create(
-// 				{
-// 					amount: product.price * 100,
-// 					currency: "usd",
-// 					customer: customer.id,
-// 					receipt_email: token.email,
-// 					description: `purchase of product.name`, // product.name
-// 					shipping: {
-// 						name: token.card.name,
-// 						address: {
-// 							country: token.card.address_country,
-// 						},
-// 					},
-// 				},
-// 				{ idempotencyKey }
-// 			);
-// 		})
-// 		.then((result) => res.status(200).json(result))
-// 		.catch((err) => console.log(err));
-// });
-
 const port = process.env.PORT || 7000;
 
 app.listen(port, () => {

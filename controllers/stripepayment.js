@@ -1,10 +1,10 @@
 const stripe = require("stripe")(
-	"sk_test_51J0l2NSEF0BipjQaPslPOxpSRBOXAycLbARnIs9dzVFUx31MgIvvkjLrbqaX8PdHxhBOHUhXlvqugMU0yp7e7sgl00LfLoFSpR"
+	"sk_test_51J0l2NSEF0BipjQaEZUbpsOQpXUEBoM2CUaGBkutPDKgYOcN9qM7HR1J76FHOuOcWFeacgxdfHB0EMwGgpF7Zqlr00tYCNBLJw"
 );
 const { v4: uuidv4 } = require("uuid");
 
 exports.makepayment = (req, res) => {
-	const { products, price, token } = req.body;
+	const { price, token } = req.body;
 
 	const idempotencyKey = uuidv4();
 	return stripe.customers

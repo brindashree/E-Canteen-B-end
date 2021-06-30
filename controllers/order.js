@@ -87,3 +87,49 @@ exports.updateStatusDeclined = (req, res) => {
 		}
 	);
 };
+exports.updateStatusCancelled = (req, res) => {
+	Order.findByIdAndUpdate(
+		{ _id: req.order._id },
+		{ $set: { status: "Cancelled" } },
+		{ new: true, useFindAndModify: false },
+		(err, order) => {
+			if (err) {
+				return res.status(400).json({
+					error: "Cannot update Order Status",
+				});
+			}
+			res.json(order);
+		}
+	);
+};
+exports.updatePaymentStatus = (req, res) => {
+	Order.findByIdAndUpdate(
+		{ _id: req.order._id },
+		{ $set: { paid: true } },
+		{ new: true, useFindAndModify: false },
+		(err, order) => {
+			if (err) {
+				return res.status(400).json({
+					error: "Cannot update Payment Status",
+				});
+			}
+			res.json(order);
+		}
+	);
+};
+
+exports.updateRefundStatus = (req, res) => {
+	Order.findByIdAndUpdate(
+		{ _id: req.order._id },
+		{ $set: { refundApproval: true } },
+		{ new: true, useFindAndModify: false },
+		(err, order) => {
+			if (err) {
+				return res.status(400).json({
+					error: "Cannot update Refund Status",
+				});
+			}
+			res.json(order);
+		}
+	);
+};

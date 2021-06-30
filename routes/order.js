@@ -12,12 +12,14 @@ const { updateStock } = require("../controllers/product");
 const {
 	createOrder,
 	getAllOrders,
-
 	getOrderById,
 	getOrderStatus,
 	updateStatus,
 	updateStatusDeclined,
 	updateStatusConfirm,
+	updateStatusCancelled,
+	updatePaymentStatus,
+	updateRefundStatus,
 } = require("../controllers/order");
 
 //params
@@ -79,4 +81,26 @@ router.put(
 	isAdmin,
 	updateStatusDeclined
 );
+router.put(
+	"/order/:orderId/status/cancel/:userId",
+	isSignedIn,
+	isAuthenticated,
+
+	updateStatusCancelled
+);
+router.put(
+	"/order/:orderId/status/pay/success/:userId",
+	isSignedIn,
+	isAuthenticated,
+
+	updatePaymentStatus
+);
+router.put(
+	"/order/:orderId/status/refundapprove/success/:userId",
+	isSignedIn,
+	isAuthenticated,
+
+	updateRefundStatus
+);
+
 module.exports = router;

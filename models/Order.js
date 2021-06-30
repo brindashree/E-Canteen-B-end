@@ -25,6 +25,14 @@ const OrderSchema = new mongoose.Schema(
 			default: "Processing",
 			enum: ["Cancelled", "Processing", "Recieved"],
 		},
+		paid: {
+			type: Boolean,
+			default: false,
+		},
+		refundApproval: {
+			type: Boolean,
+			default: false,
+		},
 		updated: Date,
 		user: {
 			type: ObjectId,
